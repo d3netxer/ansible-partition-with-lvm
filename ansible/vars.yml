@@ -1,0 +1,13 @@
+---
+system_packages:
+  - build-essential
+  - git
+  - git-core
+  - curl
+  - make
+  - vim
+  - unzip
+  - nginx
+  - nodejs 
+
+

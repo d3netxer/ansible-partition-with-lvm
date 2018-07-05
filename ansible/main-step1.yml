@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  vars:
+    remote_user: vagrant
+    #remote_user: ubuntu
+  vars_files:
+    - vars.yml
+  sudo: yes
+  user: root
+  connection: local
+  gather_facts: False
+  roles:
+  - { role: rvm_io.ruby,
+      tags: ruby,
+      sudo: True, 
+      rvm1_rubies: ['ruby-2.3.1'],
+      rvm1_install_flags: '--auto-dotfiles',
+        rvm1_install_path: /usr/local/rvm, 
+        rvm1_user: root  }
+  tasks:
+  - name: update apt cache
+    apt: update_cache=yes
+  - name: Install required system packages.
+    apt: pkg={{ item }} state=installed 
+    sudo_user: root
+    with_items: 
+      - "{{ system_packages }}"
+  - name: change permissions
+    file: path=/opt owner={{ remote_user }} group={{ remote_user }} state=directory recurse=yes
+  - name: change permissions
+    file: path=/usr/local/rvm owner={{ remote_user }} group={{ remote_user }} state=directory recurse=yes 
+  - name: add rvm to bashrc
+    lineinfile: dest=/etc/bash.bashrc line="/usr/local/rvm/scripts/rvm"
+  - name: reload bash.bashrc file
+    sudo: no   
+    shell: source /home/{{ remote_user }}/.bashrc && source /etc/bash.bashrc
+    args:
+       executable: /bin/bash
+  - name: source rvm
+    sudo: no
+    shell: source /usr/local/rvm/scripts/rvm
+    args:
+       executable: /bin/bash 
+  - name: install jekyll
+    sudo: no
+    shell: gem install jekyll
+    args:
+       executable: /bin/bash 
+
+
+
+
