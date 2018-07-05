@@ -102,15 +102,29 @@
     lvol:
       vg: vgdata
       lv: homelv
-      size: 1000M
+      size: 2000M
       force: yes
-  - name: create file system for /home
+  - name: create file system for /media/home
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/homelv
+  - name: mount logical volume for /media/home
+    mount:
+      name: /media/home
+      src: /dev/vgdata/homelv
+      fstype: ext4
+      state: mounted
+  - name: Synchronization of src on the control machine to dest on the remote hosts
+    synchronize:
+      src: /home/
+      dest: /media/home
+  - name: move /home to /old_home and this will not be counted as an error
+    command: mv /home /old_homei
+    ignore_errors: yes
   - name: mount logical volume for /home
     mount:
       name: /home
       src: /dev/vgdata/homelv
       fstype: ext4
       state: mounted
+
