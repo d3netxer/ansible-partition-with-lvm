@@ -3,6 +3,7 @@
   vars:
     remote_user: vagrant
     #remote_user: ubuntu
+    pvs: /dev/xvdf
   vars_files:
     - vars.yml
   sudo: yes
@@ -11,39 +12,105 @@
   gather_facts: False
   roles:
   tasks:
-  - name: Create a volume group on top of /dev/xvda1 with physical extent size = 64MB
+  - name: Create a volume group on top of physical volume
     lvg:
       vg: vgdata
-      pvs: /dev/xvdf
-  - name: lvcreate
+      pvs: "{{pvs}}"
+  - name: lvcreate for /var
     lvol:
       vg: vgdata
       lv: varly
       size: 2000M
       force: yes
-  - name: create file system
+  - name: create file system for /var
     filesystem: 
       fstype: ext4
       dev: /dev/vgdata/varly
-  - name: mount logical volume
+  - name: mount logical volume for /var
     mount: 
       name: /var
       src: /dev/vgdata/varly
       fstype: ext4
       state: mounted
-  - name: lvcreate for tmp
+  - name: lvcreate for /tmp
     lvol:
       vg: vgdata
       lv: tmplv
       size: 2000M
       force: yes
-  - name: create file system for tmp
+  - name: create file system for /tmp
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/tmplv
-  - name: mount logical volume for tmp
+  - name: mount logical volume for /tmp
     mount:
       name: /tmp
       src: /dev/vgdata/tmplv
+      fstype: ext4
+      state: mounted
+  - name: set permissions for tmp so everybody can use it
+    shell: chmod 1777 /tmp
+  - name: lvcreate for /var/tmp
+    lvol:
+      vg: vgdata
+      lv: vartmplv
+      size: 1000M
+      force: yes
+  - name: create file system for tmp
+    filesystem:
+      fstype: ext4
+      dev: /dev/vgdata/vartmplv
+  - name: mount logical volume for tmp
+    mount:
+      name: /var/tmp
+      src: /dev/vgdata/vartmplv
+      fstype: ext4
+      state: mounted
+  - name: lvcreate for /var/log
+    lvol:
+      vg: vgdata
+      lv: varloglv
+      size: 1000M
+      force: yes
+  - name: create file system for /var/log
+    filesystem:
+      fstype: ext4
+      dev: /dev/vgdata/varloglv
+  - name: mount logical volume for /var/log
+    mount:
+      name: /var/log
+      src: /dev/vgdata/varloglv
+      fstype: ext4
+      state: mounted
+  - name: lvcreate for /var/log/audit
+    lvol:
+      vg: vgdata
+      lv: varlogauditlv
+      size: 1000M
+      force: yes
+  - name: create file system for /var/log/audit
+    filesystem:
+      fstype: ext4
+      dev: /dev/vgdata/varlogauditlv
+  - name: mount logical volume for /var/log/audit
+    mount:
+      name: /var/log/audit
+      src: /dev/vgdata/varlogauditlv
+      fstype: ext4
+      state: mounted
+  - name: lvcreate for /home
+    lvol:
+      vg: vgdata
+      lv: homelv
+      size: 1000M
+      force: yes
+  - name: create file system for /home
+    filesystem:
+      fstype: ext4
+      dev: /dev/vgdata/homelv
+  - name: mount logical volume for /home
+    mount:
+      name: /home
+      src: /dev/vgdata/homelv
       fstype: ext4
       state: mounted
