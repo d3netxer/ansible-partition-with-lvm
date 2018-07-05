@@ -11,11 +11,39 @@
   gather_facts: False
   roles:
   tasks:
-  - name: update apt cache
-    apt: update_cache=yes
-  - name: Install required system packages.
-    apt: pkg={{ item }} state=installed 
-    sudo_user: root
-    with_items: 
-      - "{{ system_packages }}"
-
+  - name: Create a volume group on top of /dev/xvda1 with physical extent size = 64MB
+    lvg:
+      vg: vgdata
+      pvs: /dev/xvdf
+  - name: lvcreate
+    lvol:
+      vg: vgdata
+      lv: varly
+      size: 2000M
+      force: yes
+  - name: create file system
+    filesystem: 
+      fstype: ext4
+      dev: /dev/vgdata/varly
+  - name: mount logical volume
+    mount: 
+      name: /var
+      src: /dev/vgdata/varly
+      fstype: ext4
+      state: mounted
+  - name: lvcreate for tmp
+    lvol:
+      vg: vgdata
+      lv: tmplv
+      size: 2000M
+      force: yes
+  - name: create file system for tmp
+    filesystem:
+      fstype: ext4
+      dev: /dev/vgdata/tmplv
+  - name: mount logical volume for tmp
+    mount:
+      name: /tmp
+      src: /dev/vgdata/tmplv
+      fstype: ext4
+      state: mounted
