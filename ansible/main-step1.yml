@@ -118,9 +118,14 @@
     synchronize:
       src: /home/
       dest: /media/home
-  - name: move /home to /old_home and this will not be counted as an error
-    command: mv /home /old_homei
-    ignore_errors: yes
+  - name: create /old_home dir
+    file:
+      path: /old_home
+      state: directory
+  - name: rsync /home to /old_home
+    synchronize:
+      src: /home/
+      dest: /old_home
   - name: mount logical volume for /home
     mount:
       name: /home
