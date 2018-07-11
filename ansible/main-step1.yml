@@ -64,23 +64,63 @@
       dev: /dev/vgdata/tmplv
   - name: mount logical volume for /tmp
     mount:
-      name: /tmp
+      name: media/tmp
       src: /dev/vgdata/tmplv
       fstype: ext4
       state: mounted
   - name: set permissions for tmp so everybody can use it
-    shell: chmod 1777 /tmp
+    shell: chmod 1777 media/tmp
+  - name: Synchronization of src to dest, ignore errors (this may happen is files are missing permissions)
+    synchronize:
+      src: /tmp/
+      dest: /media/tmp
+    ignore_errors: yes
+  - name: create /old_tmp dir
+    file:
+      path: /old_tmp
+      state: directory
+  - name: rsync /tmp to /old_tmp
+    synchronize:
+      src: /tmp/
+      dest: /old_tmp
+    ignore_errors: yes
+  - name: mount logical volume for /tmp
+    mount:
+      name: /tmp
+      src: /dev/vgdata/tmplv
+      fstype: ext4
+      state: mounted
   - name: lvcreate for /var/tmp
     lvol:
       vg: vgdata
       lv: vartmplv
       size: 1000M
       force: yes
-  - name: create file system for tmp
+  - name: create file system for /var/tmp
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/vartmplv
-  - name: mount logical volume for tmp
+  - name: mount logical volume for /media/var/tmp
+    mount:
+      name: media/var/tmp
+      src: /dev/vgdata/vartmplv
+      fstype: ext4
+      state: mounted
+  - name: Synchronization of src to dest, ignore errors (this may happen is files are missing permissions)
+    synchronize:
+      src: /old_var/tmp
+      dest: /media/var/tmp
+    ignore_errors: yes
+  - name: create /old_var_tmp dir
+    file:
+      path: /old_var_tmp
+      state: directory
+  - name: rsync /old_var/tmp to /old_var_tmp
+    synchronize:
+      src: /old_var/tmp/
+      dest: /old_var_tmp
+    ignore_errors: yes
+  - name: mount logical volume for /var/tmp
     mount:
       name: /var/tmp
       src: /dev/vgdata/vartmplv
@@ -96,10 +136,30 @@
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/varloglv
+  - name: mount logical volume for media/var/log
+    mount:
+      name: media/var/log
+      src: /dev/vgdata/varloglv
+      fstype: ext4
+      state: mounted
+  - name: Synchronization of src to dest, ignore errors (this may happen is files are missing permissions)
+    synchronize:
+      src: /old_var/log/
+      dest: /media/var/log
+    ignore_errors: yes
+  - name: create /old_var_log dir
+    file:
+      path: /old_var_log
+      state: directory
+  - name: rsync /var to /old_var_log
+    synchronize:
+      src: /old_var/log/
+      dest: /old_var_log
+    ignore_errors: yes
   - name: mount logical volume for /var/log
     mount:
       name: /var/log
-      src: /dev/vgdata/varloglv
+      src: /dev/vgdata/varlv
       fstype: ext4
       state: mounted
   - name: lvcreate for /var/log/audit
@@ -112,6 +172,26 @@
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/varlogauditlv
+  - name: mount logical volume for media/var/log/audit
+    mount:
+      name: media/var/log/audit
+      src: /dev/vgdata/varlogauditlv
+      fstype: ext4
+      state: mounted
+  - name: Synchronization of src to dest, ignore errors (this may happen is files are missing permissions)
+    synchronize:
+      src: /old_var/log/audit
+      dest: /media/var/log/audit
+    ignore_errors: yes
+  - name: create /old_var_log_audit dir
+    file:
+      path: /old_var_log_audit
+      state: directory
+  - name: rsync /old_var/log/audit to /old_var_log_audit
+    synchronize:
+      src: /var/
+      dest: /old_var_log_audit
+    ignore_errors: yes
   - name: mount logical volume for /var/log/audit
     mount:
       name: /var/log/audit
