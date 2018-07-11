@@ -159,7 +159,7 @@
   - name: mount logical volume for /var/log
     mount:
       name: /var/log
-      src: /dev/vgdata/varlv
+      src: /dev/vgdata/variloglv
       fstype: ext4
       state: mounted
   - name: lvcreate for /var/log/audit
@@ -218,6 +218,7 @@
     synchronize:
       src: /home/
       dest: /media/home
+    ignore_errors: yes
   - name: create /old_home dir
     file:
       path: /old_home
@@ -226,6 +227,7 @@
     synchronize:
       src: /home/
       dest: /old_home
+    ignore_errors: yes
   - name: mount logical volume for /home
     mount:
       name: /home
