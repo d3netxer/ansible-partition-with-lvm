@@ -133,10 +133,11 @@
       src: /dev/vgdata/varlogauditlv
       fstype: ext4
       state: mounted
-  - name: rsync old_var/log/audit to /var/log/audit
+  - name: rsync old_var/log/audit to /var/log/audit (if old_var/log/audit does not exist, then it will ignore error)
     synchronize: 
       src: /old_var/log/audit/
       dest: /var/log/audit
+    ignore_errors: yes
   - name: lvcreate for /home
     lvol:
       vg: vgdata
