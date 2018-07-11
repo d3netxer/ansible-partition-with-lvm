@@ -49,7 +49,7 @@
   - name: mount logical volume for /var
     mount:
       name: /var
-      src: /dev/vgdata/varlv
+      src: media/var
       fstype: ext4
       state: mounted
   - name: lvcreate for /tmp
@@ -62,19 +62,6 @@
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/tmplv
-  - name: mount logical volume for /tmp
-    mount:
-      name: media/tmp
-      src: /dev/vgdata/tmplv
-      fstype: ext4
-      state: mounted
-  - name: set permissions for tmp so everybody can use it
-    shell: chmod 1777 media/tmp
-  - name: Synchronization of src to dest, ignore errors (this may happen if files are missing permissions)
-    synchronize:
-      src: /tmp/
-      dest: /media/tmp
-    ignore_errors: yes
   - name: create /old_tmp dir
     file:
       path: /old_tmp
@@ -90,6 +77,13 @@
       src: /dev/vgdata/tmplv
       fstype: ext4
       state: mounted
+  - name: rsync /old_tmp back to /tmp
+    synchronize:
+      src: /old_tmp/
+      dest: /tmp
+  - name: set permissions for tmp so everybody can use it
+    shell: chmod 1777 /tmp
+    ignore_errors: yes
   - name: lvcreate for /var/tmp
     lvol:
       vg: vgdata
