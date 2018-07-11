@@ -1,0 +1,89 @@
+Cloud-init v. 18.2 running 'init-local' at Wed, 11 Jul 2018 19:53:34 +0000. Up 4.41 seconds.
+Cloud-init v. 18.2 running 'init' at Wed, 11 Jul 2018 19:53:36 +0000. Up 6.34 seconds.
+ci-info: ++++++++++++++++++++++++++++++++++++++Net device info++++++++++++++++++++++++++++++++++++++
+ci-info: +--------+------+-----------------------------+---------------+-------+-------------------+
+ci-info: | Device |  Up  |           Address           |      Mask     | Scope |     Hw-Address    |
+ci-info: +--------+------+-----------------------------+---------------+-------+-------------------+
+ci-info: |  eth0  | True |        172.31.29.193        | 255.255.240.0 |   .   | 0e:15:bc:04:d8:dc |
+ci-info: |  eth0  | True | fe80::c15:bcff:fe04:d8dc/64 |       .       |  link | 0e:15:bc:04:d8:dc |
+ci-info: |   lo   | True |          127.0.0.1          |   255.0.0.0   |   .   |         .         |
+ci-info: |   lo   | True |           ::1/128           |       .       |  host |         .         |
+ci-info: +--------+------+-----------------------------+---------------+-------+-------------------+
+ci-info: +++++++++++++++++++++++++++++Route IPv4 info+++++++++++++++++++++++++++++
+ci-info: +-------+-------------+-------------+---------------+-----------+-------+
+ci-info: | Route | Destination |   Gateway   |    Genmask    | Interface | Flags |
+ci-info: +-------+-------------+-------------+---------------+-----------+-------+
+ci-info: |   0   |   0.0.0.0   | 172.31.16.1 |    0.0.0.0    |    eth0   |   UG  |
+ci-info: |   1   | 172.31.16.0 |   0.0.0.0   | 255.255.240.0 |    eth0   |   U   |
+ci-info: +-------+-------------+-------------+---------------+-----------+-------+
+Generating public/private rsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_rsa_key.
+Your public key has been saved in /etc/ssh/ssh_host_rsa_key.pub.
+The key fingerprint is:
+SHA256:XsakuOd1nMCLS5mrW2y2WH+RJkkTy7DjW3E5U2dxGAc root@ip-172-31-29-193
+The key's randomart image is:
++---[RSA 2048]----+
+|              E=+|
+|        . .   o.+|
+|         +.o o o |
+|       .o=* =    |
+|      ..So*= +   |
+|       +.*+++.   |
+|      . &ooo+.   |
+|       X.* ..    |
+|      +o= ..     |
++----[SHA256]-----+
+Generating public/private dsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_dsa_key.
+Your public key has been saved in /etc/ssh/ssh_host_dsa_key.pub.
+The key fingerprint is:
+SHA256:0oFhXwXIfuqVzf5G99hnUBMjGStPeriLnrUEEuBFgh4 root@ip-172-31-29-193
+The key's randomart image is:
++---[DSA 1024]----+
+|    .o++ .oo..o  |
+|   E..++o.   o.o |
+|  . ...oo  . o. o|
+|   .   .o.. *  ..|
+|      ..S+ * o ..|
+|       .o + = o .|
+|       . . = . =.|
+|        . = + o =|
+|        .+ o o...|
++----[SHA256]-----+
+Generating public/private ecdsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key.
+Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub.
+The key fingerprint is:
+SHA256:+PDhX3SNYaXEayxTfpMdLZqprQgcWxbLt3DZFt6zr+0 root@ip-172-31-29-193
+The key's randomart image is:
++---[ECDSA 256]---+
+|             .. o|
+|        .   ..++.|
+|       . o + X+o+|
+|      ..* + X.B*o|
+|     .o=S+ =.+o+o|
+|      += .o....  |
+|       .+. ..  . |
+|        ....   ..|
+|          .   .oE|
++----[SHA256]-----+
+Generating public/private ed25519 key pair.
+Your identification has been saved in /etc/ssh/ssh_host_ed25519_key.
+Your public key has been saved in /etc/ssh/ssh_host_ed25519_key.pub.
+The key fingerprint is:
+SHA256:/Vzt0PxaBP8/gj6IH/wwqfZ5z9m7WWS1yeS72Mc/h4U root@ip-172-31-29-193
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|                 |
+|              ...|
+|         .    +*+|
+|        S .   o*O|
+|        . .o .E*=|
+|        .*. +  =*|
+|       o..*+..*=O|
+|      ..o+ooo=oB@|
++----[SHA256]-----+
+Cloud-init v. 18.2 running 'modules:config' at Wed, 11 Jul 2018 19:53:38 +0000. Up 8.25 seconds.
+Cloud-init v. 18.2 running 'modules:final' at Wed, 11 Jul 2018 19:53:46 +0000. Up 16.18 seconds.
+Cloud-init v. 18.2 finished at Wed, 11 Jul 2018 19:53:46 +0000. Datasource DataSourceEc2Local.  Up 16.63 seconds
