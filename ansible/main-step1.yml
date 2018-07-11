@@ -32,10 +32,11 @@
       src: /dev/vgdata/varlv
       fstype: ext4
       state: mounted
-  - name: Synchronization of src to dest 
-    synchronize:
-      src: /home/
+  - name: Synchronization of src to dest, ignore errors (this may happen is files are missing permissions) 
+    synchronize: 
+      src: /var/ 
       dest: /media/var
+    ignore_errors: yes
   - name: create /old_var dir
     file:
       path: /old_var
@@ -44,6 +45,7 @@
     synchronize:
       src: /var/
       dest: /old_var
+    ignore_errors: yes
   - name: mount logical volume for /var
     mount:
       name: /var
