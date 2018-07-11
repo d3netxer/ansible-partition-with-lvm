@@ -178,7 +178,7 @@
       src: /dev/vgdata/varlogauditlv
       fstype: ext4
       state: mounted
-  - name: Synchronization of src to dest, ignore errors (this may happen if files are missing permissions)
+  - name: Synchronization of src to dest, ignore errors (this may happen if files are missing permissions, also if /old_var/log/audit does not exist)
     synchronize:
       src: /old_var/log/audit
       dest: /media/var/log/audit
@@ -189,7 +189,7 @@
       state: directory
   - name: rsync /old_var/log/audit to /old_var_log_audit
     synchronize:
-      src: /var/
+      src: /old_var/log/audit/
       dest: /old_var_log_audit
     ignore_errors: yes
   - name: mount logical volume for /var/log/audit
