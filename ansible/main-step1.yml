@@ -107,32 +107,16 @@
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/varloglv
-  - name: mount logical volume for media/var/log
-    mount:
-      name: media/var/log
-      src: /dev/vgdata/varloglv
-      fstype: ext4
-      state: mounted
-  - name: Synchronization of src to dest, ignore errors (this may happen if files are missing permissions)
-    synchronize:
-      src: /old_var/log/
-      dest: /media/var/log
-    ignore_errors: yes
-  - name: create /old_var_log dir
-    file:
-      path: /old_var_log
-      state: directory
-  - name: rsync /var to /old_var_log
-    synchronize:
-      src: /old_var/log/
-      dest: /old_var_log
-    ignore_errors: yes
   - name: mount logical volume for /var/log
     mount:
       name: /var/log
       src: /dev/vgdata/varloglv
       fstype: ext4
       state: mounted
+  - name: rsync /old_var/log to /var/log
+    synchronize: 
+      src: /old_var/log/
+      dest: /var/log
   - name: lvcreate for /var/log/audit
     lvol:
       vg: vgdata
@@ -143,32 +127,16 @@
     filesystem:
       fstype: ext4
       dev: /dev/vgdata/varlogauditlv
-  - name: mount logical volume for media/var/log/audit
-    mount:
-      name: media/var/log/audit
-      src: /dev/vgdata/varlogauditlv
-      fstype: ext4
-      state: mounted
-  - name: Synchronization of src to dest, ignore errors (this may happen if files are missing permissions, also if /old_var/log/audit does not exist)
-    synchronize:
-      src: /old_var/log/audit
-      dest: /media/var/log/audit
-    ignore_errors: yes
-  - name: create /old_var_log_audit dir
-    file:
-      path: /old_var_log_audit
-      state: directory
-  - name: rsync /old_var/log/audit to /old_var_log_audit
-    synchronize:
-      src: /old_var/log/audit/
-      dest: /old_var_log_audit
-    ignore_errors: yes
   - name: mount logical volume for /var/log/audit
     mount:
       name: /var/log/audit
       src: /dev/vgdata/varlogauditlv
       fstype: ext4
       state: mounted
+  - name: rsync old_var/log/audit to /var/log/audit
+    synchronize: 
+      src: /old_var/log/audit/
+      dest: /var/log/audit
   - name: lvcreate for /home
     lvol:
       vg: vgdata

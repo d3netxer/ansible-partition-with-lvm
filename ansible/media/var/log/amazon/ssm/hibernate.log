@@ -1,4 +1,0 @@
-2018-07-11 19:53:46 INFO Agent enters hibernate mode. Reducing logging...
-2018-07-11 19:58:46 INFO Backing off health check to every 600 minutes for 1800 minutes. Logging will be reduced to one log per backoff period
-2018-07-11 19:58:46 ERROR Health ping failed with error - NoCredentialProviders: no valid providers in chain. Deprecated.
-	For verbose messaging see aws.Config.CredentialsChainVerboseErrors
