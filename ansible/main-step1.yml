@@ -159,7 +159,7 @@
   - name: mount logical volume for /var/log
     mount:
       name: /var/log
-      src: /dev/vgdata/variloglv
+      src: /dev/vgdata/varloglv
       fstype: ext4
       state: mounted
   - name: lvcreate for /var/log/audit
