@@ -26,17 +26,6 @@
     filesystem: 
       fstype: ext4
       dev: /dev/vgdata/varlv
-  - name: mount logical volume for /media/var
-    mount: 
-      name: /media/var
-      src: /dev/vgdata/varlv
-      fstype: ext4
-      state: mounted
-  - name: Synchronization of src to dest, ignore errors (this may happen if files are missing permissions) 
-    synchronize: 
-      src: /var/ 
-      dest: /media/var
-    ignore_errors: yes
   - name: create /old_var dir
     file:
       path: /old_var
@@ -49,9 +38,13 @@
   - name: mount logical volume for /var
     mount:
       name: /var
-      src: media/var
+      src: /dev/vgdata/varlv
       fstype: ext4
       state: mounted
+  - name: rsync /old_var back to /var
+    synchronize:
+      src: /old_var/
+      dest: /var
   - name: lvcreate for /tmp
     lvol:
       vg: vgdata
