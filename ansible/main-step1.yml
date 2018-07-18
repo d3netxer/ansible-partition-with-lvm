@@ -30,7 +30,7 @@
     file:
       path: /old_var
       state: directory
-  - name: rsync /var to /old_var
+  - name: rsync /var to /old_var, it is okay if there are errors because some file such as lxcfs don't have any permissions
     synchronize:
       src: /var/
       dest: /old_var
