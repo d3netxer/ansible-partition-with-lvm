@@ -20,7 +20,7 @@
     lvol:
       vg: vgdata
       lv: varlv
-      size: 2000M
+      size: 1000M
       force: yes
   - name: create file system for /var
     filesystem: 
@@ -49,7 +49,7 @@
     lvol:
       vg: vgdata
       lv: tmplv
-      size: 2000M
+      size: 1000M
       force: yes
   - name: create file system for /tmp
     filesystem:
@@ -81,7 +81,7 @@
     lvol:
       vg: vgdata
       lv: vartmplv
-      size: 1000M
+      size: 500M
       force: yes
   - name: create file system for /var/tmp
     filesystem:
@@ -101,7 +101,7 @@
     lvol:
       vg: vgdata
       lv: varloglv
-      size: 1000M
+      size: 500M
       force: yes
   - name: create file system for /var/log
     filesystem:
@@ -121,7 +121,7 @@
     lvol:
       vg: vgdata
       lv: varlogauditlv
-      size: 1000M
+      size: 500M
       force: yes
   - name: create file system for /var/log/audit
     filesystem:
@@ -142,7 +142,7 @@
     lvol:
       vg: vgdata
       lv: homelv
-      size: 2000M
+      size: 1000M
       force: yes
   - name: create file system for /media/home
     filesystem:
