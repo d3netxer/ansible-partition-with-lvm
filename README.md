@@ -40,5 +40,5 @@ Do not mount the volume. You can now proceed with the next step.
 
 4. Run the main-step1 playbook ('ansible-playbook main-step1.yml')
 
-
+Afterwards you can run the  ```df -h``` command to view your directories.
 
