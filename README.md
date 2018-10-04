@@ -18,7 +18,7 @@ total allocated: 4.9 Gib
 
 2. Navigate to the script directory and run the ansible shell script ('source ansible.sh'). This will install ansible.
 
-3. Navigate to the ansible directory and configure the pvs (physical volumes) variable in the main-step2.yml file.You can run the following command to find out the name of the attached volume: ```sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL```
+3. Navigate to the ansible directory and configure the pvs (physical volumes) variable in the main-step2.yml file to have the attached volume. You can run the following command to find out the name of the attached volume: ```sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL```
 
 ### Extra tips for AWS:
 
