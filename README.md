@@ -2,7 +2,15 @@
 
 Use Ansible to provision an Ubuntu Xenial (16.04) instance to partition an Ubuntu instance into multiple LVM partitions.
 
-This assumes you launched an EC2 instance with an attached volume (tested on 10gb attached volume size).
+This assumes you launched an EC2 instance with an attached volume (tested on 5gb attached volume size). Current setting (are configurable):
+
+- var: 2 Gib
+- tmp: .8 Gib
+- var/tmp: .3 Gib
+- var/log: .5 Gib
+- var/log/audit: .3 Gib
+- home: 1 Gib
+total allocated: 4.9 Gib
 
 ## Steps
 
