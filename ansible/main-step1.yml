@@ -3,7 +3,7 @@
   vars:
     remote_user: vagrant
     #remote_user: ubuntu
-    pvs: /dev/nvme1n1
+    pvs: /dev/nvme0n1
     #pvs: /dev/xvdb
   vars_files:
     - vars.yml
