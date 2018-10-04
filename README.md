@@ -26,7 +26,7 @@ nvme1n1                10G
 └─nvme1n1p1 ext4       10G /  
 ```
 
-From this you can tell that nvme1n1p1 is the physical volume that is mounted to your root, and that nvme0n1 is the attached physical volume. The next step is to format your attached physical volume with a command like this: ```sudo mkfs -t ext4 /dev/nvme0n1```
+From this you can tell that nvme1n1 is the physical volume that is mounted to your root, and that nvme0n1 is the attached physical volume. The next step is to format your attached physical volume with a command like this: ```sudo mkfs -t ext4 /dev/nvme0n1```
 
 Do not mount the volume. You can now proceed with the next step.
 
